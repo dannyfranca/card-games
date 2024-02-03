@@ -3,19 +3,20 @@ import { Deck } from '../../base/deck';
 
 export class Player {
   name: string;
-  hand: Card[] = [];
+  private hand = new Set<Card>();
 
   constructor(name: string) {
     this.name = name;
   }
 
-  draw(deck: Deck): void {
-    const drewCard = deck.draw();
-    if (!drewCard) return;
-    this.hand.push(drewCard);
+  draw(deck: Deck) {
+    const card = deck.draw();
+    if (card) {
+      this.hand.add(card);
+    }
   }
 
   playCard(card: Card) {
-    // Game logic to play card
+    this.hand.delete(card);
   }
 }
